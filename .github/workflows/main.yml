@@ -1,0 +1,37 @@
+name: Push-to-EC2
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout the files
+      uses: actions/checkout@v3
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+    - name: Install npm dependencies
+      run: npm install
+    - name: Copy files with SSH
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{secrets.EC2_SSH_KEY}}
+        ARGS: "-rlgoDzvc -i --delete"
+        SOURCE: "./"
+        REMOTE_HOST: ${{secrets.HOST_DNS}}
+        REMOTE_USER: ${{secrets.USERNAME}}
+        TARGET: ${{secrets.TARGET_DIR}}
+        EXCLUDE: "/dist/, /node_modules/, **.env"
+        SCRIPT_AFTER: |
+          curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
+          sudo apt-get install -y nodejs
+          sudo apt install npm
+          sudo su
+          cd finance
+          npm i 
+          
+          
