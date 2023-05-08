@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const API_URL = "http://18.231.164.126:5000/user"
+const API_URL = "http://${{secrets.HOST_DNS}}:5000/user"
 
 class AuthService {
     login(username: string, password: string) {
