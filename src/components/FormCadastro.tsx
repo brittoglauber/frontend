@@ -23,14 +23,14 @@ export default function FormCadastro() {
         if(isValid == true){
             setPasswordCompatible(true);
 
-            await axios.post('http://18.231.164.126:5000/user',
+            await axios.post('http://${{secrets.HOST_DNS}}/user',
             JSON.stringify({ username, password }),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }
             ).then(response => {
-                win.location = "http://18.231.164.126:3000/entrar";
+                win.location = "http://${{secrets.HOST_DNS}}:3000/entrar";
             })
 
         } else {
