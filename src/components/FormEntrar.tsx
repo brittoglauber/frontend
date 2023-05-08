@@ -19,7 +19,7 @@ const FormEntrar = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         
-        await axios.post('http://18.231.164.126:5000/login',
+        await axios.post('http://${{secrets.HOST_DNS}}:5000/login',
             JSON.stringify({ username, password }),
             {
                 headers: { 'Content-Type': 'application/json' },
@@ -30,7 +30,7 @@ const FormEntrar = () => {
             localStorage.setItem('token', token);
             localStorage.setItem('username', username);
             setPasswordCompatible(true);
-            win.location = "http://18.231.164.126:3000/perfil";
+            win.location = "http://${{secrets.HOST_DNS}}:3000/perfil";
             
         })
         .catch(error => {
