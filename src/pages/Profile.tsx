@@ -22,7 +22,7 @@ const Profile = () => {
 
   const buscarSaldo = async () => {
     await axios
-      .get(`http://18.231.164.126:5000/saldo/${id}`)
+      .get(`http://${{secrets.HOST_DNS}}:5000/saldo/${id}`)
       .then((response) => {
         setSaldo(response.data); // atualiza o estado do saldo com a resposta da API
         setMostrarSaldo(true); // atualiza o estado de mostrarSaldo para exibir o saldo
