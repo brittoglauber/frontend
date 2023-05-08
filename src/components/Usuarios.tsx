@@ -10,7 +10,7 @@ const Usuarios = ({ usuario }: usuariosProps) => {
   
   const [usuarios, setUsuarios] = useState<IUser[]>([])
   useEffect(() => {
-      axios.get(`http://18.231.164.126:5000/users/${usuario.id}/`)
+      axios.get(`http://${{secrets.HOST_DNS}}:5000/users/${usuario.id}/`)
       .then(resposta => {
         setUsuarios(resposta.data)
       })
